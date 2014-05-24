@@ -1,0 +1,66 @@
+.leftColumn {
+	float: left;
+	width: 48%;
+}
+
+.rightColumn {
+	float: right;
+	width: 48%;
+}
+
+ol.twoColumn li {
+	border-bottom: 1px solid #C7C7C7;
+	list-style: none;
+	padding: 1px 2px;
+}
+
+.twoColumn {
+	border-top: 1px solid #5C0B0D;
+	border-right: 1px solid #5C0B0D;
+	border-left: 1px solid #5C0B0D;
+	margin-top: 20px;
+	padding: 1px 20px 1px 20px;
+	
+}
+
+.rightColumn .twoColumn {
+	border-top-right-radius: 10px;
+}
+
+.leftColumn .twoColumn {
+	border-top-left-radius: 10px;
+}
+
+.section {
+	background: #5C0B0D;
+	font-weight: bold;
+	color: #f7f7f7;
+	padding: 1px 2px 1px 2px;
+}
+
+div.rightColumn .section {
+	float: left;
+}
+
+div.leftColumn .section {
+	float: right;
+}
+
+.displayData {
+/*	float: left;*/
+}
+
+.displayLabel {
+	color: #595959;
+	font-size: 10px;
+	margin-left: 2px;
+}
+
+.half {
+	width: 48%;
+}
+
+
+
+
+

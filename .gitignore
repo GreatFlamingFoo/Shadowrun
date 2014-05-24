@@ -1,0 +1,3 @@
+*.sqlite
+environments/development.yml
+data.sql
