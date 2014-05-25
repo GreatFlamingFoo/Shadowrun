@@ -2,12 +2,20 @@ package Shadowrun;
 use Dancer ':syntax';
 use Dancer::Plugin::SimpleCRUD;
 use SRDB;
+use Template;
 
 our $VERSION = '0.1';
 
 get '/' => sub {
     template 'index';
 };
+
+get '/character/:id' => sub {
+	template 'character', {
+		'c' => SRDB->table('Character')->fetch(param('id')),
+	};
+};
+
 
 simple_crud(
 	record_title=>'Skills',

@@ -1,0 +1,200 @@
+<html>
+<head>
+	<link rel="stylesheet" href="/css/stuff.css" />
+	<script>
+	function roll() {
+		var dice = parseInt(document.getElementById("dice").value);
+		var results = document.getElementById("results");
+		var imgs = document.getElementById("dice_img");
+		
+		while(results.firstChild) {
+			results.removeChild(results.firstChild);
+		}
+		
+		if(isNaN(dice)) {
+			dice = 0;
+		}
+		
+		for(var i=0; i<dice; i++) {
+			var num = Math.floor(Math.random() * imgs.children.length);
+			results.appendChild(imgs.children[num].cloneNode());
+		}
+	}
+	</script>
+</head>
+<body>
+	<div>
+		<div class="leftColumn">
+			<label class="displayLabel">Character</label> <span class=""><% c.Character %>&nbsp;</span>
+		</div>
+		<div class="rightColumn">
+			<label class="displayLabel">Notes</label><span><% c.Notes %>&nbsp;</span>
+		</div>
+		<hr style="clear:both;"/>
+		<div class="leftColumn">
+			<div class="section">Personal Data</div>
+			<ol class="twoColumn">
+				<li><label class="displayLabel">Name/Primary Alias</label>	<span class="displayData"><% c.Alias %> </span></li>
+				<li><label class="displayLabel">Metatype</label>			<span class="displayData"><% c.Metatype %> </span>
+					<label class="displayLabel">Ethnicity</label>			<span class="displayData"><% c.Ethnicity %></span></li>
+				<li><label class="displayLabel">Age</label>					<span class="displayData"><% c.Age %></span>
+					<label class="displayLabel">Sex</label>					<span class="displayData"><% c.Sex %></span>
+					<label class="displayLabel">Height</label>				<span class="displayData"><% c.Height %></span>
+					<label class="displayLabel">Weight</label>				<span class="displayData"><% c.Weight %></span></li>
+				<li><label class="displayLabel">Street Cred</label>			<span class="displayData"><% c.StreetCred %></span>
+					<label class="displayLabel">Notoriety</label>			<span class="displayData"><% c.Notoriety %></span>
+					<label class="displayLabel">Public Awareness</label>	<span class="displayData"><% c.PublicAwareness %></span></li>
+				<li><label class="displayLabel">Karma</label>				<span class="displayData"><% c.Karma %></span>
+					<label class="displayLabel">Total Karma</label>			<span class="displayData"><% c.TotalKarma %></span>
+					<label class="displayLabel">Misc</label>				<span class="displayData"><% c.Misc %></span></li>
+
+			</ol>
+		</div>
+		<div class="rightColumn">
+			<div class="section">Core Combat Info</div>
+			<ol class="twoColumn">
+				<li><label class="displayLabel">Primary Armor</label>			<span class="displayData">...</span>
+					<label class="displayLabel">Rating</label>					<span class="displayData">...</span></li>
+				<li><label class="displayLabel">Primary Ranged Weapon</label>	<span class="displayData">...</span></li>
+				<li><label class="displayLabel">Dam</label>						<span class="displayData">...</span>
+					<label class="displayLabel">Acc</label>						<span class="displayData">...</span>
+					<label class="displayLabel">AP</label>						<span class="displayData">...</span>
+					<label class="displayLabel">Mode</label>					<span class="displayData">...</span>
+					<label class="displayLabel">RC</label>						<span class="displayData">...</span>
+					<label class="displayLabel">Ammo</label>					<span class="displayData">...</span></li>
+				<li><label class="displayLabel">Primary Melee Weapn</label>		<span class="displayData">...</span></li>
+				<li><label class="displayLabel">Reach</label>					<span class="displayData">...</span>
+					<label class="displayLabel">Dam</label>						<span class="displayData">...</span>
+					<label class="displayLabel">Acc</label>						<span class="displayData">...</span>
+					<label class="displayLabel">AP</label>						<span class="displayData">...</span></li>
+			</ol>
+		</div>
+		<div class="leftColumn">
+			<div class="section">Attributes</div>
+			<ol class="twoColumn">
+				<li><span class="half"><label class="displayLabel">Body</label>
+						<span class="displayData"><% c.Body %></span></span>
+					<span class="half"><label class="displayLabel">Essence</label>
+						<span class="displayData"><% c.Essence %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Agility</label>
+						<span class="displayData"><% c.Agility %></span></span>
+					<span class="half"><label class="displayLabel">Magic/Resonance</label>
+						<span class="displayData"><% c.MagicResonance %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Reaction</label>
+						<span class="displayData"><% c.Reaction %></span></span>
+					<span class="half"><label class="displayLabel">Initiative</label>
+						<span class="displayData"><% c.Initiative %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Strength</label>
+						<span class="displayData"><% c.Strength %></span></span>
+					<span class="half"><label class="displayLabel">Matrix Initiative</label>
+						<span class="displayData"><% c.MatrixInitiative %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Willpower</label>
+						<span class="displayData"><% c.Willpower %></span></span>
+					<span class="half"><label class="displayLabel">Astral Initiative</label>
+						<span class="displayData"><% c.AstralInitiative %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Logic</label>
+						<span class="displayData"><% c.Logic %></span></span>
+					<span class="half"><label class="displayLabel">Composure</label>
+						<span class="displayData"><% c.Willpower + c.Charisma %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Intuition</label>
+						<span class="displayData"><% c.Intuition %></span></span>
+					<span class="half"><label class="displayLabel">Judge Intentions</label>
+						<span class="displayData"><% c.Intuition + c.Charisma %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Charisma</label>
+						<span class="displayData"><% c.Charisma %></span></span>
+					<span class="half"><label class="displayLabel">Memory</label>
+						<span class="displayData"><% c.Logic + c.Willpower %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Edge</label>
+						<span class="displayData"><% c.Edge %></span></span>
+					<span class="half"><label class="displayLabel">Lift/Carry</label>
+						<span class="displayData"><% c.Strength * 15 %> kg / <% c.Strength * 10 %> kg (<% c.Body + c.Strength %>)</span></span></li>
+				<li><span class="half"><label class="displayLabel">Edge Points</label>
+						<span class="displayData"><% c.EdgePoints %></span></span>
+					<span class="half"><label class="displayLabel">Movement</label>
+						<span class="displayData"><% c.Agility * 2 %> / <% c.Agility * 4 %> / 
+							<% IF c.Metatype == "Troll" or c.Metatype == "Dwarf" %>+1<% ELSE %>+2<% END %>m 
+							(<% c.Body + c.get_skill("Running") %>)</span></span></li>
+				<li><span class="half"><label class="displayLabel">Physical Limit</label>
+						<span class="displayData"><% c.PhysicalLimit %></span></span>
+					<span class="half"><label class="displayLabel">Mental Limit</label>
+						<span class="displayData"><% c.MentalLimit %></span></span>
+					<span class="half"><label class="displayLabel">Social Limit</label>
+						<span class="displayData"><% c.SocialLimit %></span></span></li>
+			</ol>
+		</div>
+		<div class="rightColumn">
+			<div class="section">Condition Monitor</div>
+			<div class="twoColumn">
+				<table class="leftColumn" border="1">
+					<tr><th colspan="3">Physical Damage Track</th></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-1</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-2</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-3</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-4</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-5</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-6</td></tr>
+				</table>
+				<table class="rightColumn" border="1">
+					<tr><th colspan="3">Stun Damage Track</th></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-1</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-2</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-3</td></tr>
+					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-4</td></tr>
+				</table>
+				<span class="rightColumn">Overflow __/<% c.Body %></span>
+				<div style="clear:both;">&nbsp;</div>
+			</div>
+		</div>
+		<div class="leftColumn">
+			<div class="section">Skills</div>
+			<div class="twoColumn">
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Rating</th>
+						<th>Specialization</th>
+						<th>Type</th>
+						<th>&nbsp;</th>
+					</tr>
+					<% FOREACH s in c.Skills %>
+					 <tr>
+					 	<td><% s.Skill.Name %></td>
+					 	<%- stat = s.Skill.Stat -%>
+					 	<td><% s.Rating %> <% IF stat %>(<% s.Rating + c.$stat %>)<% END %></td>
+					 	<td><% s.Specialization %></td>
+					 	<td><% s.Skill.Type %></td>
+					 	<td><img src="/images/emblem-notice.png" title="<% s.Skill.Description %>"</td>
+					 </tr>
+					 <% IF s.Skill.Type == "Group" %>
+					  <% FOREACH ss in s.Skill.Group_Skills %>
+					   <tr>
+					   	<td>&nbsp;&nbsp;<% ss.Name %></td>
+					   	<%- stat = ss.Stat -%>
+					   	<td>&nbsp;&nbsp;<% s.Rating %> <% IF stat %>(<% s.Rating + c.$stat %>)<% END %></td>
+					   	<td>&nbsp;</td>
+					   	<td>&nbsp;&nbsp;<% ss.Type %></td>
+					   	<td>&nbsp;&nbsp;<img src="/images/emblem-notice.png" title="<% ss.Description %>"</td>
+					   </tr>
+					  <% END %>
+					 <% END %>
+					<% END %>
+				</table>
+			</div>
+		</div>
+		<div class="rightColumn">
+			<div class="section">Qualities</div>
+			<div class="twoColumn">
+				stuff
+			</div>
+		</div>
+	</div>
+	<div style="clear: both; height: 85px;">
+		<span id="dice_img" style="display:none;">
+			<img src="/images/1.png" value="1"><img src="/images/2.png" value="2"><img src="/images/3.png" value="3">
+			<img src="/images/4.png" value="4"><img src="/images/5.png" value="5"><img src="/images/6.png" value="6">
+		</span>
+		<div><input id="dice" size=4><input type="button" value="Roll" onclick="roll();"></div>
+		<span id="results">&nbsp;</span>
+	</div>
+</body>
+</html>

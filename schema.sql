@@ -9,7 +9,7 @@ CREATE TABLE Character (
 );
 
 CREATE TABLE Character_Quality (
-	ID INT PRIMARY KEY, CID INT, QID INT, Details TEXT
+	ID INT PRIMARY KEY, CID INT, QID INT, Details TEXT, Karma INT
 );
 
 CREATE TABLE Character_Skill (
