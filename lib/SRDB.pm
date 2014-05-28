@@ -14,7 +14,7 @@ DBIx::DataModel
 ->Table(qw/Character			Character			ID	/)
 ->Table(qw/Character_Quality	Character_Quality	ID	/)
 ->Table(qw/Character_Skill		Character_Skill		ID	/)
-->Table(qw/Contact				Contacts			ID	/)
+->Table(qw/Contact				Contact				ID	/)
 ->Table(qw/Quality				Quality				ID	/)
 ->Table(qw/Skill				Skill				ID	/)
 
@@ -72,6 +72,18 @@ sub SocialLimit
 	return ceil(($self->{'Charisma'} * 2 + $self->{'Willpower'} + $self->{'Essence'}) / 3);
 }
 
+sub PhysicalTrack
+{
+	my $self = shift;
+	return 8 + ceil($self->{'Body'} / 2);
+}
+
+sub StunTrack
+{
+	my $self = shift;
+	return 8 + ceil($self->{'Willpower'} / 2);
+}
+
 # skill lookup with group cascade
 sub get_skill
 {
@@ -82,7 +94,13 @@ sub get_skill
 	my $cs = SRDB->table('Character_Skill')->select(-where=>{CID=>$self->{'ID'}, SID=>$skill->{'ID'}}, -result_as=>'firstrow');
 	if($cs) {
 		return $cs->{'Rating'};
-	} elsif($skill->{'Default'}) {
+	} elsif(defined $skill->{'SkillGroup'}) {
+		$cs = SRDB->table('Character_Skill')->select(-where=>{CID=>$self->{'ID'}, SID=>$skill->{'SkillGroup'}},
+			-result_as=>'firstrow');
+		return $cs->{'Rating'} if $cs;
+	}
+	
+	if($skill->{'Default'}) {
 		return -1;
 	} else {
 		return undef;

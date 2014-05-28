@@ -18,7 +18,8 @@ ol.twoColumn li {
 	border-top: 1px solid #5C0B0D;
 	border-right: 1px solid #5C0B0D;
 	border-left: 1px solid #5C0B0D;
-	margin-top: 20px;
+	margin-bottom: 10px;
+	clear: both;
 	padding: 1px 20px 1px 20px;
 	
 }
@@ -60,8 +61,48 @@ div.leftColumn .section {
 	width: 48%;
 }
 
+td {
+	border-bottom: 1px solid #C7C7C7;
+} /* FIXME needs to be more specific */
 
+.track td {
+	border-border: medium none #000;
+}
 
+.dice {
+	color: #5C0B0D;
+}
 
+#diceBox {
+/*	clear: both; */
+	position:fixed !important;
+	min-height: 85px;
+	width: 100%;
+	left: 0;
+	bottom:0; 
+	background: #ddd;
+}
 
+.pBox {
+	background: #eee;
+	height: 32px;
+	width: 32px;
+}
 
+.sBox {
+	background: #eee;
+	height: 32px;
+	width: 32px;
+}
+
+.pFilled {
+	background: #F00;
+}
+
+.sFilled {
+	background: #FF0;
+}
+
+.unused {
+	background: #000;
+}

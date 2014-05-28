@@ -1,28 +1,9 @@
 <html>
 <head>
-	<link rel="stylesheet" href="/css/stuff.css" />
-	<script>
-	function roll() {
-		var dice = parseInt(document.getElementById("dice").value);
-		var results = document.getElementById("results");
-		var imgs = document.getElementById("dice_img");
-		
-		while(results.firstChild) {
-			results.removeChild(results.firstChild);
-		}
-		
-		if(isNaN(dice)) {
-			dice = 0;
-		}
-		
-		for(var i=0; i<dice; i++) {
-			var num = Math.floor(Math.random() * imgs.children.length);
-			results.appendChild(imgs.children[num].cloneNode());
-		}
-	}
-	</script>
+	<link rel="stylesheet" href="<% request.uri_base %>/css/stuff.css" />
+	<script type="text/javascript" src="<% request.uri_base %>/javascripts/char.sheet.js"></script>
 </head>
-<body>
+<body onload="setup();">
 	<div>
 		<div class="leftColumn">
 			<label class="displayLabel">Character</label> <span class=""><% c.Character %>&nbsp;</span>
@@ -49,6 +30,102 @@
 					<label class="displayLabel">Misc</label>				<span class="displayData"><% c.Misc %></span></li>
 
 			</ol>
+			<div class="section">Attributes</div>
+			<ol class="twoColumn">
+				<li><span class="half"><label class="displayLabel">Body</label>
+						<span class="displayData dice"><% c.Body %></span></span>
+					<span class="half"><label class="displayLabel">Essence</label>
+						<span class="displayData dice"><% c.Essence %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Agility</label>
+						<span class="displayData dice"><% c.Agility %></span></span>
+					<span class="half"><label class="displayLabel">Magic/Resonance</label>
+						<span class="displayData dice"><% c.MagicResonance %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Reaction</label>
+						<span class="displayData dice"><% c.Reaction %></span></span>
+					<span class="half"><label class="displayLabel">Initiative</label>
+						<span class="displayData"><% c.Initiative %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Strength</label>
+						<span class="displayData dice"><% c.Strength %></span></span>
+					<span class="half"><label class="displayLabel">Matrix Initiative</label>
+						<span class="displayData dice"><% c.MatrixInitiative %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Willpower</label>
+						<span class="displayData dice"><% c.Willpower %></span></span>
+					<span class="half"><label class="displayLabel">Astral Initiative</label>
+						<span class="displayData"><% c.AstralInitiative %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Logic</label>
+						<span class="displayData dice"><% c.Logic %></span></span>
+					<span class="half"><label class="displayLabel">Composure</label>
+						<span class="displayData dice"><% c.Willpower + c.Charisma %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Intuition</label>
+						<span class="displayData dice"><% c.Intuition %></span></span>
+					<span class="half"><label class="displayLabel">Judge Intentions</label>
+						<span class="displayData dice"><% c.Intuition + c.Charisma %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Charisma</label>
+						<span class="displayData dice"><% c.Charisma %></span></span>
+					<span class="half"><label class="displayLabel">Memory</label>
+						<span class="displayData dice"><% c.Logic + c.Willpower %></span></span></li>
+				<li><span class="half"><label class="displayLabel">Edge</label>
+						<span class="displayData" onclick="addDice(<% c.Edge %>);"><% c.Edge %></span></span>
+					<span class="half"><label class="displayLabel">Lift/Carry</label>
+						<span class="displayData"><% c.Strength * 15 %> kg / <% c.Strength * 10 %> kg 
+							(<span class="dice"><% c.Body + c.Strength %></span>)</span></span></li>
+				<li><span class="half"><label class="displayLabel">Edge Points</label>
+						<span class="displayData"><% c.EdgePoints %></span></span>
+					<span class="half"><label class="displayLabel">Movement</label>
+						<span class="displayData"><% c.Agility * 2 %> / <% c.Agility * 4 %> / 
+							<% IF c.Metatype == "Troll" or c.Metatype == "Dwarf" %>+1<% ELSE %>+2<% END %>m 
+							(<span class="dice"><% c.Body + c.get_skill("Running") %></span>)</span></span></li>
+				<li><span class="half"><label class="displayLabel">Physical Limit</label>
+						<span class="displayData"><% c.PhysicalLimit %></span></span>
+					<span class="half"><label class="displayLabel">Mental Limit</label>
+						<span class="displayData"><% c.MentalLimit %></span></span>
+					<span class="half"><label class="displayLabel">Social Limit</label>
+						<span class="displayData"><% c.SocialLimit %></span></span></li>
+			</ol>
+			<div class="section">Skills</div>
+			<div class="twoColumn">
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Rating</th>
+						<th>Specialization</th>
+						<th>Type</th>
+						<th>&nbsp;</th>
+					</tr>
+					<% FOREACH s in c.Char_Skills %>
+					 <tr>
+					 	<td><% IF s.Skill.Type == "Language" or s.Skill.Type == "Knowledge" %><% s.Notes %>
+							<% ELSE %><% s.Skill.Name %><% END %></td>
+					 	<%- stat = s.Skill.Stat -%>
+					 	<td><% IF s.Rating %><% s.Rating %> <% ELSIF s.Skill.Type == "Language" %>N<% ELSE %>N/A<% END %>
+							<% IF stat and s.Rating %>(<span class="dice"><% s.Rating + c.$stat %></span>)<% END %></td>
+					 	<td><span onclick="addDice(2);"><% s.Specialization %></span></td>
+					 	<td><% s.Skill.Type %></td>
+					 	<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% s.Skill.Description %>"</td>
+					 </tr>
+					 <% IF s.Skill.Type == "Group" %>
+					  <% FOREACH ss in s.Skill.Group_Skills %>
+					   <tr>
+					   	<td>&nbsp;&nbsp;<% ss.Name %></td>
+					   	<%- stat = ss.Stat -%>
+					   	<td>&nbsp;&nbsp;<% s.Rating %> <% IF stat %>(<span class="dice"><% s.Rating + c.$stat %></span>)<% END %></td>
+					   	<td>&nbsp;</td>
+					   	<td>&nbsp;&nbsp;<% ss.Type %></td>
+					   	<td>&nbsp;&nbsp;<img src="<% request.uri_base %>/images/emblem-notice.png" title="<% ss.Description %>"</td>
+					   </tr>
+					  <% END %>
+					 <% END %>
+					<% END %>
+				</table>
+			</div>
+			<div class="section">IDs / Lifestyles / Currency</div>
+			<ol class="twoColumn">
+				<li><label class="displayLabel">Primary Lifestyle</label>	<span class="displayData"><% c.LifeStyle %></span></li>
+				<li><label class="displayLabel">Nuyen</label>				<span class="displayData"><% c.Nuyen %></span>
+					<label class="displayLabel">Licenses</label>			<span class="displayData"> </span></li>
+				<li><label class="displayLabel">Fake IDs / Related Lifestyles / Funds / Licenses</label>
+					<br/>...</li>
+			</ol>
 		</div>
 		<div class="rightColumn">
 			<div class="section">Core Combat Info</div>
@@ -68,132 +145,89 @@
 					<label class="displayLabel">Acc</label>						<span class="displayData">...</span>
 					<label class="displayLabel">AP</label>						<span class="displayData">...</span></li>
 			</ol>
-		</div>
-		<div class="leftColumn">
-			<div class="section">Attributes</div>
-			<ol class="twoColumn">
-				<li><span class="half"><label class="displayLabel">Body</label>
-						<span class="displayData"><% c.Body %></span></span>
-					<span class="half"><label class="displayLabel">Essence</label>
-						<span class="displayData"><% c.Essence %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Agility</label>
-						<span class="displayData"><% c.Agility %></span></span>
-					<span class="half"><label class="displayLabel">Magic/Resonance</label>
-						<span class="displayData"><% c.MagicResonance %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Reaction</label>
-						<span class="displayData"><% c.Reaction %></span></span>
-					<span class="half"><label class="displayLabel">Initiative</label>
-						<span class="displayData"><% c.Initiative %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Strength</label>
-						<span class="displayData"><% c.Strength %></span></span>
-					<span class="half"><label class="displayLabel">Matrix Initiative</label>
-						<span class="displayData"><% c.MatrixInitiative %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Willpower</label>
-						<span class="displayData"><% c.Willpower %></span></span>
-					<span class="half"><label class="displayLabel">Astral Initiative</label>
-						<span class="displayData"><% c.AstralInitiative %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Logic</label>
-						<span class="displayData"><% c.Logic %></span></span>
-					<span class="half"><label class="displayLabel">Composure</label>
-						<span class="displayData"><% c.Willpower + c.Charisma %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Intuition</label>
-						<span class="displayData"><% c.Intuition %></span></span>
-					<span class="half"><label class="displayLabel">Judge Intentions</label>
-						<span class="displayData"><% c.Intuition + c.Charisma %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Charisma</label>
-						<span class="displayData"><% c.Charisma %></span></span>
-					<span class="half"><label class="displayLabel">Memory</label>
-						<span class="displayData"><% c.Logic + c.Willpower %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Edge</label>
-						<span class="displayData"><% c.Edge %></span></span>
-					<span class="half"><label class="displayLabel">Lift/Carry</label>
-						<span class="displayData"><% c.Strength * 15 %> kg / <% c.Strength * 10 %> kg (<% c.Body + c.Strength %>)</span></span></li>
-				<li><span class="half"><label class="displayLabel">Edge Points</label>
-						<span class="displayData"><% c.EdgePoints %></span></span>
-					<span class="half"><label class="displayLabel">Movement</label>
-						<span class="displayData"><% c.Agility * 2 %> / <% c.Agility * 4 %> / 
-							<% IF c.Metatype == "Troll" or c.Metatype == "Dwarf" %>+1<% ELSE %>+2<% END %>m 
-							(<% c.Body + c.get_skill("Running") %>)</span></span></li>
-				<li><span class="half"><label class="displayLabel">Physical Limit</label>
-						<span class="displayData"><% c.PhysicalLimit %></span></span>
-					<span class="half"><label class="displayLabel">Mental Limit</label>
-						<span class="displayData"><% c.MentalLimit %></span></span>
-					<span class="half"><label class="displayLabel">Social Limit</label>
-						<span class="displayData"><% c.SocialLimit %></span></span></li>
-			</ol>
-		</div>
-		<div class="rightColumn">
 			<div class="section">Condition Monitor</div>
 			<div class="twoColumn">
-				<table class="leftColumn" border="1">
+				<input type="hidden" id="physicalDmg" value="0">
+				<input type="hidden" id="physicalBoxes" value="<% c.PhysicalTrack %>">
+				<table class="leftColumn track" id="physical">
 					<tr><th colspan="3">Physical Damage Track</th></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-1</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-2</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-3</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-4</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-5</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-6</td></tr>
+					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-1);">-1</td></tr>
+					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-2);">-2</td></tr>
+					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-3);">-3</td></tr>
+					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-4);">-4</td></tr>
+					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-5);">-5</td></tr>
+					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-6);">-6</td></tr>
 				</table>
-				<table class="rightColumn" border="1">
+				
+				<input type="hidden" id="stunDmg" value="0">
+				<input type="hidden" id="stunBoxes" value="<% c.StunTrack %>">
+				<table class="rightColumn track" id="stun">
 					<tr><th colspan="3">Stun Damage Track</th></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-1</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-2</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-3</td></tr>
-					<tr><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox">-4</td></tr>
+					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-1);">-1</td></tr>
+					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-2);">-2</td></tr>
+					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-3);">-3</td></tr>
+					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-4);">-4</td></tr>
 				</table>
-				<span class="rightColumn">Overflow __/<% c.Body %></span>
+				<div class="rightColumn"><br/>Overflow <input size="3" id="overflow" value="0">/<% c.Body %></div>
 				<div style="clear:both;">&nbsp;</div>
 			</div>
-		</div>
-		<div class="leftColumn">
-			<div class="section">Skills</div>
+			<div class="section">Qualities</div>
 			<div class="twoColumn">
 				<table>
 					<tr>
 						<th>Name</th>
-						<th>Rating</th>
-						<th>Specialization</th>
-						<th>Type</th>
+						<th>Notes</th>
+						<th>Karma cost</th>
 						<th>&nbsp;</th>
 					</tr>
-					<% FOREACH s in c.Skills %>
+					<% FOREACH q in c.Char_Qualities %>
 					 <tr>
-					 	<td><% s.Skill.Name %></td>
-					 	<%- stat = s.Skill.Stat -%>
-					 	<td><% s.Rating %> <% IF stat %>(<% s.Rating + c.$stat %>)<% END %></td>
-					 	<td><% s.Specialization %></td>
-					 	<td><% s.Skill.Type %></td>
-					 	<td><img src="/images/emblem-notice.png" title="<% s.Skill.Description %>"</td>
+					 	<td><% q.Quality.Name %></td>
+						<td><% q.Details %></td>
+						<td><% IF q.Quality.Type == "Negative" %>-<% END %><% q.Karma %></td>
+						<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% q.Quality.Description %>"></td>
 					 </tr>
-					 <% IF s.Skill.Type == "Group" %>
-					  <% FOREACH ss in s.Skill.Group_Skills %>
-					   <tr>
-					   	<td>&nbsp;&nbsp;<% ss.Name %></td>
-					   	<%- stat = ss.Stat -%>
-					   	<td>&nbsp;&nbsp;<% s.Rating %> <% IF stat %>(<% s.Rating + c.$stat %>)<% END %></td>
-					   	<td>&nbsp;</td>
-					   	<td>&nbsp;&nbsp;<% ss.Type %></td>
-					   	<td>&nbsp;&nbsp;<img src="/images/emblem-notice.png" title="<% ss.Description %>"</td>
-					   </tr>
-					  <% END %>
-					 <% END %>
+					<% END %>
+				</table>
+			</div>
+			<div class="section">Contacts</div>
+			<div class="twoColumn">
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Loyalty</th>
+						<th>Connection</th>
+						<th>Favor</th>
+						<th>&nbsp;</th>
+					</tr>
+					<% FOREACH c in c.Contacts %>
+					  <tr>
+					  	<td><% c.Name %></td>
+						<td><% c.Loyalty %></td>
+						<td><% c.Connection %></td>
+						<td><% c.Favor %></td>
+						<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% c.Misc %> "></td>
+					  </tr>
 					<% END %>
 				</table>
 			</div>
 		</div>
-		<div class="rightColumn">
-			<div class="section">Qualities</div>
-			<div class="twoColumn">
-				stuff
-			</div>
-		</div>
 	</div>
-	<div style="clear: both; height: 85px;">
+	<div style="clear:both; height:85px;">&nbsp;</div>
+	<div id="diceBox">
 		<span id="dice_img" style="display:none;">
-			<img src="/images/1.png" value="1"><img src="/images/2.png" value="2"><img src="/images/3.png" value="3">
-			<img src="/images/4.png" value="4"><img src="/images/5.png" value="5"><img src="/images/6.png" value="6">
+			<img src="<% request.uri_base %>/images/1.png" value="1" class="failure glitch">
+			<img src="<% request.uri_base %>/images/2.png" value="2" class="failure">
+			<img src="<% request.uri_base %>/images/3.png" value="3" class="failure">
+			<img src="<% request.uri_base %>/images/4.png" value="4" class="failure">
+			<img src="<% request.uri_base %>/images/5.png" value="5" class="success">
+			<img src="<% request.uri_base %>/images/6.png" value="6" class="success explode">
 		</span>
-		<div><input id="dice" size=4><input type="button" value="Roll" onclick="roll();"></div>
+		<div>
+			<input id="dice" size=4>
+			<input type="button" value="Roll" onclick="roll();">
+			<input type="button" value="Reroll" onclick="reroll();">
+		</div>
 		<span id="results">&nbsp;</span>
 	</div>
 </body>
