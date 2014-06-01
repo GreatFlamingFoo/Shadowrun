@@ -1,0 +1,56 @@
+     +-----------+   +-----------------+   +-----------------+     +--------------+   +------------+   +-------+       
+     |Quality    |   |Character_Quality|   |Character        |     |Deck          |   |Deck_Program|   |Program|       
+     +-----------+   +-----------------+   +-----------------+     +--------------+   +------------+   +-------+       
+     |ID         +-+ |ID               | +-+ID               +-+   |ID            +-+ |ID          | +-+ID     |       
+     |Name       | | |CID              +-+ |Character        | | +-+GID           | +-+DID         | | |Name   |       
+     |Type       | +-+QID              | | |Player           | | | |Attack        |   |PID         +-+ |Desc   |       
+     |Cost       |   |Details          | | |Notes            | | | |Sleaze        |   |Rating      |   |Cost   |       
+     |Description|   |Karma            | | |Alias            | | | |DataProcessing|   +------------+   +-------+       
+     +-----------+   +-----------------+ | |Metatype         | | | |Firewall      |                                    
+                                         | |Ethnicity        | | | |MatrixDmg     |    Created with                    
++----------------+     +---------------+ | |Age              | | | |MaxMatrixDmg  |       http://asciiflow.com/        
+| Skill          |     |Character_Skill| | |Sex              | | | +--------------+                                    
++----------------+     +---------------+ | |Height           | | |                                                     
+| ID             +--+  |ID             | | |Weight           | | +---------+                                           
+| Name           |  |  |CID            +-+ |StreetCred       | |           |                  +-----------+            
+| Type           |  +--+SID            | | |Notoriety        | | +-------+ | +------------+   |Weapon_Mode|   +----+   
+| Default        |     |Rating         | | |PublicAwareness  | | |Gear   | | |RangedWeapon|   +-----------+   |Mode|   
+| SkillGroup     |     |Specialization | | |Karma            | | +-------+ | +------------+   |ID         |   +----+   
+| Specializations|     |Notes          | | |TotalKarma       | | |ID     +-+ |ID          +---+WID        | +-+ID  |   
+| Description    |     +---------------+ | |Misc             | +-+CID    | +-+GID         |   |MID        +-+ |Name|   
+| Stat           |                       | |EdgePoints       | | |Name   | | |Mode        +-+ +-----------+ | |Desc|   
++----------------+     +---------+    +--+ |Initiative       | | |Desc   | | |Dmg         | |               | |Ammo|   
+                       |Character|    |    |MatrixInitiative | | |Rating | | |Acc         | +---------------+ +----+   
+        +--------+     |_Spell   |    |    |AstralInitiati e | | |Count  | | |AP          |                            
+        |Spell   |     +---------+    |    |LifeStyle        | | |Active | | |RC          |          +------------+    
+        +--------+     |ID       |    |    |Nuyen            | | |       | | |Ammo        |          |Character_  |    
+        |ID      +--+  |CID      +----+  +-+BaseStats        | | +-------+ | |ClipSize    |          |Augmentation|    
+        |Name    |  +--+SID      |    |  | |                 | |           | +------------+          +------------+    
+        |Type    |     +---------+    |  | +-----------------+ | +------+  |                         |ID          |    
+        |Target  |                    |  |                     | |Powers|  +---------+---------------+GID         |    
+        |Range   |  +-----------------+  |                     | +------+  |         |               |AID         +---+
+        |Duration|  |                 |  |                     | |ID    |  | +-----+ | +-----------+ |Ess         |   |
+        |Drain   |  |  +------------+ |  |                     +-+CID   |  | |Armor| | |MeleeWeapon| +------------+   |
+        +--------+  |  |Vehicle     | |  |                     | |Name  |  | +-----+ | +-----------+                  |
+                    |  +------------+ |  |                     | |Rating|  | |ID   | | |ID         |   +------------+ |
+      +----------+  |  |ID          | |  |                     | |Notes |  +-+GID  | +-+GID        |   |Augmentation| |
+      |Contact   |  |  |CID         +-+  |                     | +------+    |Set  |   |Dmg        |   +------------+ |
+      +----------+  |  |Name        |    |                     |             |Notes|   |Acc        | +-+ID          +-+
+      |ID        |  |  |Acceleration|    |                     |             +-----+   |Reach      | | |Name        |  
+      |CID       +--+  |Pilot       |    |         +---------+ |                       |AP         | | |Desc        |  
+      |Name      |     |Armor       |    |         |Character| |   +--------------+    +-----------+ | |MaxRating   |  
+      |Loyalty   |     |Hadling     |    |         |_Stat    | |   |Stat          |                  | |Capacity    |  
+      |Connection|     |Speed       |    |         +---------+ |   +--------------+   +------------+ | |Avalibility |  
+      |Favor     |     |Body        |    |         |ID       | | +-+ID            +-+ |Augmentation| | |Cost        |  
+      |Misc      |     |Sensor      |    |         |CID      +-+ | |Body          | | |_Stat       | | |Type        |  
+      +----------+     |Notes       |    +---------+SID      |   | |Agility       | | +------------+ | +------------+  
+                       +------------+    |         |         |   | |Reaction      | | |ID          | |                 
+                                         |         |Active   |   | |Strength      | | |AID         +-+                 
+                                         |         |         |   | |Willpower     | +-+SID         |                   
+                                         |         +---------+   | |Logic         |   |Rating      |                   
+                                         |                       | |Intuition     |   +------------+                   
+                                         +-----------------------+ |Charisma      |                                    
+                                                                   |Edge          |                                    
+                                                                   |Essence       |                                    
+                                                                   |MagicResonance|                                    
+                                                                   +--------------+                                    
