@@ -87,12 +87,16 @@ td {
 	background: #eee;
 	height: 32px;
 	width: 32px;
+	text-align: center;
+	cursor: pointer;
 }
 
 .sBox {
 	background: #eee;
 	height: 32px;
 	width: 32px;
+	text-align: center;
+	cursor: pointer;
 }
 
 .pFilled {

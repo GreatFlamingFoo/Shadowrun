@@ -10,39 +10,120 @@ DBIx::DataModel
 ->Schema("SRDB")
 
 
-#		   Class				Table				PK
-->Table(qw/Character			Character			ID	/)
-->Table(qw/Character_Quality	Character_Quality	ID	/)
-->Table(qw/Character_Skill		Character_Skill		ID	/)
-->Table(qw/Contact				Contact				ID	/)
-->Table(qw/Quality				Quality				ID	/)
-->Table(qw/Skill				Skill				ID	/)
+#		   Class					Table					PK
+->Table(qw/Character				Character				ID	/)
+->Table(qw/Character_Quality		Character_Quality		ID	/)
+->Table(qw/Character_Skill			Character_Skill			ID	/)
+->Table(qw/Contact					Contact					ID	/)
+->Table(qw/Quality					Quality					ID	/)
+->Table(qw/Skill					Skill					ID	/)
+->Table(qw/Deck						Deck					ID	/)
+->Table(qw/Deck_Program				Deck_Program			ID	/)
+->Table(qw/Program					Program					ID	/)
+->Table(qw/Vehicle					Vehicle					ID	/)
+->Table(qw/Gear						Gear					ID	/)
+->Table(qw/RangedWeapon				RangedWeapon			ID	/)
+->Table(qw/Mode						Mode					ID	/)
+->Table(qw/Weapon_Mode				Weapon_Mode				ID	/)
+->Table(qw/MeleeWeapon				MeleeWeapon				ID	/)
+->Table(qw/Armor					Armor					ID	/)
+->Table(qw/Spell					Spell					ID	/)
+->Table(qw/Character_Spell			Character_Spell			ID	/)
+->Table(qw/Power					Power					ID	/)
+->Table(qw/Character_Augmentation	Character_Augmentation	ID	/)
+->Table(qw/Augmetnation				Augmetnation			ID	/)
+->Table(qw/Augmetnation_Stat		Augmetnation_Stat		ID	/)
+->Table(qw/Stat						Stat					ID	/)
+->Table(qw/Character_Stat			Character_Stat			ID	/)
 
+# 					Class 				Role 				Mult 	Join
+->Composition(	[qw/Character			Character			1		ID			/],
+				[qw/Character_Quality	Char_Qualities		*		CID			/])
+#                                                       	
+->Composition(	[qw/Character			Character			1		ID			/], 
+				[qw/Character_Skill		Char_Skills			*		CID			/])
+#                                                       	
+->Composition(	[qw/Character			Character			1		ID			/],
+				[qw/Contact				Contacts			*		CID			/])
+#                                                       	
+->Association(	[qw/Quality				Quality				1		ID			/],
+				[qw/Character_Quality	Char_Qualities		*		QID			/])
+#                                                       	
+->Association(	[qw/Skill				Skill				1		ID			/],
+				[qw/Character_Skill		Char_Skills			*		SID			/])
+#                                                       	
+->Association(	[qw/Skill				Group				1		ID			/],
+				[qw/Skill				Group_Skills		*		SkillGroup	/])
+#                                                       	
+->Association(	[qw/Character			Character			1		ID			/],
+				[qw/Deck				Decks				*		CID			/])
+#                                                       	
+->Association(	[qw/Deck				Deck				1		ID			/],
+				[qw/Deck_Program		Deck_Programs		*		DID			/])
+#                                                       	
+->Association(	[qw/Program				Program				1		ID			/],
+				[qw/Deck_Program		Deck_Programs		*		PID			/])
+#                                                       	
+->Association(	[qw/Character			Character			1		ID			/],
+				[qw/Vehicle				Vehicles			*		CID			/])
+#                                                       	
+->Association(	[qw/Character			Character			1		ID			/],
+				[qw/Gear				Gear				*		CID			/])
+#                                                       	
+->Association(	[qw/Gear				Gear				1		ID			/],
+				[qw/RangedWeapon		RangedWeapon		*		GID			/])
+#                                                       	
+->Association(	[qw/RangedWeapon		RangedWeapon		1		ID			/],
+				[qw/Weapon_Mode			Modes				*		WID			/])
+#                                                       	
+->Association(	[qw/RangedWeapon		RangedWeapon		1		Mode		/],
+				[qw/Mode				Mode				1		ID			/])
+#                                                       	
+->Association(	[qw/Mode				Mode				1		ID			/],
+				[qw/Weapon_Mode			Weapon_Mode			*		MID			/])
+#                                                       	
+->Association(	[qw/Gear				Gear				1		ID			/],
+				[qw/MeleeWeapon			MeleeWeapon			*		GID			/])
+#                                                       	
+->Association(	[qw/Gear				Gear				1		ID			/],
+				[qw/Armor				Armor				*		GID			/])
+#                                                       	
+->Association(	[qw/Character			Character			1		ID			/],
+				[qw/Character_Spell		Char_Spells			*		CID			/])
+#
+->Association(	[qw/Spell				Spell				1		ID			/],
+				[qw/Character_Spell		Char_Spells			*		SID			/])
+#
+->Association(	[qw/Character			Character			1		ID			/],
+				[qw/Power				Powers				*		CID			/])
+#
+->Association(	[qw/Gear				Gear				1		ID			/],
+				[qw/Character_Augmentation	Char_Augmetation	*	GID			/])
+#
+->Association(	[qw/Augmetnation		Augmetnation		1		ID			/],
+				[qw/Character_Augmentation	Char_Augmetation	*	AID			/])
+#
+->Association(	[qw/Augmetnation		Augmetnation		1		ID			/],
+				[qw/Augmetnation_Stat	Aug_Stats			*		AID			/])
+#
+->Association(	[qw/Stat				Stat				1		ID			/],
+				[qw/Augmetnation_Stat	Aug_Stats			*		SID			/])
+#
+->Association(	[qw/Stat				Stat				1		ID			/],
+				[qw/Character_Stat		Char_Stats			*		SID			/])
+#
+->Association(	[qw/Character			Character			1		ID			/],
+				[qw/Character_Stat		Char_Stats			*		CID			/])
+#
+->Association(	[qw/Character			Character			1		BaseStat	/],
+				[qw/Stat				BaseStats			1		ID			/])
+#
 
-# 					Class 				Role 			Mult 	Join
-->Composition(	[qw/Character			Character		1		ID			/],
-				[qw/Character_Quality	Char_Qualities	*		CID			/])
-
-->Composition(	[qw/Character			Character		1		ID			/], 
-				[qw/Character_Skill		Char_Skills		*		CID			/])
-
-->Composition(	[qw/Character			Character		1		ID			/],
-				[qw/Contact				Contacts		*		CID			/])
-
-->Association(	[qw/Quality				Quality			1		ID			/],
-				[qw/Character_Quality	Char_Qualities	*		QID			/])
-
-->Association(	[qw/Skill				Skill			1		ID			/],
-				[qw/Character_Skill		Char_Skills		*		SID			/])
-
-->Association(	[qw/Skill				Group			1		ID			/],
-				[qw/Skill				Group_Skills	*		SkillGroup	/])
-
-->Association(	[qw/Character			Characters		*		Char_Skills		Character	/],
-				[qw/Skill				Skills			* 		Char_Skills		Skill		/])
-
-->Association(	[qw/Character			Characters		*		Char_Qualities	Character	/],
-				[qw/Quality				Qualities		*		Char_Qualities	Quality		/])
+# ->Association(	[qw/Character			Characters		*		Char_Skills		Character	/],
+# 				[qw/Skill				Skills			* 		Char_Skills		Skill		/])
+# 
+# ->Association(	[qw/Character			Characters		*		Char_Qualities	Character	/],
+# 				[qw/Quality				Qualities		*		Char_Qualities	Quality		/])
 ;
 
 SRDB->dbh(database());
@@ -82,6 +163,62 @@ sub StunTrack
 {
 	my $self = shift;
 	return 8 + ceil($self->{'Willpower'} / 2);
+}
+
+sub Body
+{ 
+	my $self = shift;
+	return ;
+}
+sub Agility
+{ 
+	my $self = shift;
+	return ;
+}
+sub Reaction
+{ 
+	my $self = shift;
+	return ;
+}
+sub Strength
+{ 
+	my $self = shift;
+	return ;
+}
+sub Willpower
+{ 
+	my $self = shift;
+	return ;
+}
+sub Logic
+{ 
+	my $self = shift;
+	return ;
+}
+sub Intuition
+{ 
+	my $self = shift;
+	return ;
+}
+sub Charisma
+{ 
+	my $self = shift;
+	return ;
+}
+sub Edge
+{ 
+	my $self = shift;
+	return ;
+}
+sub Essence
+{ 
+	my $self = shift;
+	return ;
+}
+sub MagicResonance
+{ 
+	my $self = shift;
+	return ;
 }
 
 # skill lookup with group cascade

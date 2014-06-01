@@ -63,7 +63,10 @@ function setDmg() {
 		elems = document.getElementsByClassName("sBox");
 	}
 	
-	removeClearHandler(elems[dmg.value-1]);
+	var value = parseInt(dmg.value);
+	if(!isNaN(value) && value>0) {
+		removeClearHandler(elems[dmg.value-1]);
+	}
 	
 	dmg.value = this.value;
 	
@@ -96,11 +99,13 @@ function addClearHandler(elem) {
 				elem.onclick = setDmg;
 				removeClearHandler(this);
 			}
-		}, 1000);
+		}, 300);
 	}
 	
 	elem.onmouseout = function() {
 		clearTimeout(timer);
+		elem.innerHTML = "";
+		elem.onclick = setDmg;
 	}
 }
 
