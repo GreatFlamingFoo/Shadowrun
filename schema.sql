@@ -3,7 +3,8 @@ CREATE TABLE Character (
 	Metatype TEXT, Ethnicity TEXT, Age INT, Sex TEXT, Height TEXT, Weight TEXT, 
 	StreetCred TEXT, Notoriety TEXT, PublicAwareness TEXT, Karma INT, TotalKarma INT, 
 	Misc TEXT, EdgePoints INT, 	Initiative TEXT, MatrixInitiative TEXT, 
-	AstralInitiative TEXT, LifeStyle TEXT, Nuyen TEXT
+	AstralInitiative TEXT, LifeStyle TEXT, Nuyen TEXT, BaseStat INT, PhysicalDmg INT, 
+	StunDmg INT
 	-- Body INT, Agility INT, Reaction INT, Strength INT, Willpower INT, 
 	-- Logic INT, Intuition INT, Charisma INT, Edge INT, Essence REAL,
 	-- MagicResonance INT, 

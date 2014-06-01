@@ -24,10 +24,10 @@
         +--------+     |_Spell   |    |    |AstralInitiati e | | |Count  | | |AP          |                            
         |Spell   |     +---------+    |    |LifeStyle        | | |Active | | |RC          |          +------------+    
         +--------+     |ID       |    |    |Nuyen            | | |       | | |Ammo        |          |Character_  |    
-        |ID      +--+  |CID      +----+  +-+BaseStats        | | +-------+ | |ClipSize    |          |Augmentation|    
-        |Name    |  +--+SID      |    |  | |                 | |           | +------------+          +------------+    
-        |Type    |     +---------+    |  | +-----------------+ | +------+  |                         |ID          |    
-        |Target  |                    |  |                     | |Powers|  +---------+---------------+GID         |    
+        |ID      +--+  |CID      +----+  +-+BaseStat         | | +-------+ | |ClipSize    |          |Augmentation|    
+        |Name    |  +--+SID      |    |  | |PhysicalDmg      | |           | +------------+          +------------+    
+        |Type    |     +---------+    |  | |StunDmg          | | +------+  |                         |ID          |    
+        |Target  |                    |  | +-----------------+ | |Powers|  +---------+---------------+GID         |    
         |Range   |  +-----------------+  |                     | +------+  |         |               |AID         +---+
         |Duration|  |                 |  |                     | |ID    |  | +-----+ | +-----------+ |Ess         |   |
         |Drain   |  |  +------------+ |  |                     +-+CID   |  | |Armor| | |MeleeWeapon| +------------+   |

@@ -54,13 +54,54 @@ function addDice(num) {
 
 function setDmg() {
 	var dmg;
+	var elems;
 	if(this.classList.contains("pBox")) {
-		dmg = document.getElementById("physicalDmg")
+		dmg = document.getElementById("physicalDmg");
+		elems = document.getElementsByClassName("pBox");
 	} else if(this.classList.contains("sBox")){
-		dmg = document.getElementById("stunDmg")
-	} 
+		dmg = document.getElementById("stunDmg");
+		elems = document.getElementsByClassName("sBox");
+	}
+	
+	removeClearHandler(elems[dmg.value-1]);
+	
 	dmg.value = this.value;
+	
+	addClearHandler(this);
 	displayDmg();
+}
+
+function removeClearHandler(elem) {
+	elem.onmouseover = null;
+	elem.onmouseout  = null;
+}
+
+function addClearHandler(elem) {
+	var timer;
+	elem.onmouseover = function() {
+		timer = setTimeout(function() {
+			elem.innerHTML = "X";
+			elem.onclick = function () {
+				
+				var dmg;
+				if(this.classList.contains("pBox")) {
+					dmg = document.getElementById("physicalDmg")
+				} else if(this.classList.contains("sBox")){
+					dmg = document.getElementById("stunDmg")
+				} 
+				dmg.value = 0;
+				
+				displayDmg();
+				elem.innerHTML = "";
+				elem.onclick = setDmg;
+				removeClearHandler(this);
+			}
+		}, 1000);
+	}
+	
+	elem.onmouseout = function() {
+		clearTimeout(timer);
+	}
 }
 
 function displayDmg() {
@@ -72,6 +113,10 @@ function displayDmg() {
 		if(i<num) {
 			if(!elems[i].classList.contains("pFilled")) {
 				elems[i].classList.add("pFilled");
+			}
+			
+			if((i+1) == num) {
+				addClearHandler(elems[i]);
 			}
 		} else {
 			elems[i].classList.remove("pFilled");
@@ -86,6 +131,10 @@ function displayDmg() {
 		if(i<num) {
 			if(!elems[i].classList.contains("sFilled")) {
 				elems[i].classList.add("sFilled");
+			}
+			
+			if((i+1) == num) {
+				addClearHandler(elems[i]);
 			}
 		} else {
 			elems[i].classList.remove("sFilled");

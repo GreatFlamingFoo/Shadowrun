@@ -1,6 +1,6 @@
 <html>
 <head>
-	<link rel="stylesheet" href="<% request.uri_base %>/css/stuff.css" />
+	<link rel="stylesheet" href="<% request.uri_base %>/css/char.sheet.css" />
 	<script type="text/javascript" src="<% request.uri_base %>/javascripts/char.sheet.js"></script>
 </head>
 <body onload="setup();">
