@@ -147,6 +147,10 @@ function displayDmg() {
 	}
 }
 
+function decInit() {
+	this.value = parseInt(this.value) - 10
+}
+
 function setup() {
 	var elems = document.getElementsByClassName("dice");
 	var i;
@@ -178,5 +182,10 @@ function setup() {
 		} else {
 			elems[i].classList.add("unused");
 		}
+	}
+	
+	elems = document.getElementsByName("init");
+	for(i=0; i<elems.length; i++) {
+		elems[i].ondblclick = decInit;
 	}
 }

@@ -31,57 +31,83 @@
 
 			</ol>
 			<div class="section">Attributes</div>
-			<ol class="twoColumn">
-				<li><span class="half"><label class="displayLabel">Body</label>
-						<span class="displayData dice"><% c.Body %></span></span>
-					<span class="half"><label class="displayLabel">Essence</label>
-						<span class="displayData dice"><% c.Essence %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Agility</label>
-						<span class="displayData dice"><% c.Agility %></span></span>
-					<span class="half"><label class="displayLabel">Magic/Resonance</label>
-						<span class="displayData dice"><% c.MagicResonance %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Reaction</label>
-						<span class="displayData dice"><% c.Reaction %></span></span>
-					<span class="half"><label class="displayLabel">Initiative</label>
-						<span class="displayData"><% c.Initiative %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Strength</label>
-						<span class="displayData dice"><% c.Strength %></span></span>
-					<span class="half"><label class="displayLabel">Matrix Initiative</label>
-						<span class="displayData dice"><% c.MatrixInitiative %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Willpower</label>
-						<span class="displayData dice"><% c.Willpower %></span></span>
-					<span class="half"><label class="displayLabel">Astral Initiative</label>
-						<span class="displayData"><% c.AstralInitiative %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Logic</label>
-						<span class="displayData dice"><% c.Logic %></span></span>
-					<span class="half"><label class="displayLabel">Composure</label>
-						<span class="displayData dice"><% c.Willpower + c.Charisma %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Intuition</label>
-						<span class="displayData dice"><% c.Intuition %></span></span>
-					<span class="half"><label class="displayLabel">Judge Intentions</label>
-						<span class="displayData dice"><% c.Intuition + c.Charisma %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Charisma</label>
-						<span class="displayData dice"><% c.Charisma %></span></span>
-					<span class="half"><label class="displayLabel">Memory</label>
-						<span class="displayData dice"><% c.Logic + c.Willpower %></span></span></li>
-				<li><span class="half"><label class="displayLabel">Edge</label>
-						<span class="displayData" onclick="addDice(<% c.Edge %>);"><% c.Edge %></span></span>
-					<span class="half"><label class="displayLabel">Lift/Carry</label>
-						<span class="displayData"><% c.Strength * 15 %> kg / <% c.Strength * 10 %> kg 
-							(<span class="dice"><% c.Body + c.Strength %></span>)</span></span></li>
-				<li><span class="half"><label class="displayLabel">Edge Points</label>
-						<span class="displayData"><% c.EdgePoints %></span></span>
-					<span class="half"><label class="displayLabel">Movement</label>
-						<span class="displayData"><% c.Agility * 2 %> / <% c.Agility * 4 %> / 
+			<div class="twoColumn">
+				<table style="width:100%;">
+				  <tr>
+				  	<td><label class="displayLabel">Body</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Body %> (<span class="dice"><% c.Body %></span>)</span></td>
+				  	<td><label class="displayLabel">Essence</label></td>
+				  	<td><span class="displayData dice"><% c.Essence %></span></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Agility</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Agility %> (<span class="dice"><% c.Agility %></span>)</span></td>
+				  	<td><label class="displayLabel">Magic/Resonance</label></td>
+				  	<td><span class="displayData dice"><% c.MagicResonance %></span></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Reaction</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Reaction %> (<span class="dice"><% c.Reaction %></span>)</span></td>
+				  	<td><label class="displayLabel">Initiative</label></td>
+				  	<td><span class="displayData"><% c.Initiative %></span>
+						<input size="3" name="init" style="float: right;"></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Strength</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Strength %> (<span class="dice"><% c.Strength %></span>)</span></td>
+				  	<td><label class="displayLabel">Matrix Initiative</label></td>
+				  	<td><span class="displayData dice"><% c.MatrixInitiative %></span>
+						<input size="3" name="init" style="float: right;"></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Willpower</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Willpower %> (<span class="dice"><% c.Willpower %></span>)</span></td>
+				  	<td><label class="displayLabel">Astral Initiative</label></td>
+				  	<td><span class="displayData"><% c.AstralInitiative %></span>
+						<input size="3" name="init" style="float: right;"></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Logic</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Logic %> (<span class="dice"><% c.Logic %></span>)</span></td>
+				  	<td><label class="displayLabel">Composure</label></td>
+				  	<td><span class="displayData dice"><% c.Willpower + c.Charisma %></span></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Intuition</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Intuition %> (<span class="dice"><% c.Intuition %></span>)</span></td>
+				  	<td><label class="displayLabel">Judge Intentions</label></td>
+				  	<td><span class="displayData dice"><% c.Intuition + c.Charisma %></span></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Charisma</label></td>
+				  	<td><span class="displayData"><% c.BaseStats.Charisma %> (<span class="dice"><% c.Charisma %></span>)</span></td>
+				  	<td><label class="displayLabel">Memory</label></td>
+				  	<td><span class="displayData dice"><% c.Logic + c.Willpower %></span></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Edge</label></td>
+				  	<td><span class="displayData" onclick="addDice(<% c.Edge %>);"><% c.Edge %></span></td>
+				  	<td><label class="displayLabel">Lift/Carry</label></td>
+				  	<td><span class="displayData"><% c.Strength * 15 %> kg / <% c.Strength * 10 %> kg 
+							(<span class="dice"><% c.Body + c.Strength %></span>)</span></td>
+				  </tr>
+				  <tr>
+				  	<td><label class="displayLabel">Edge Points</label></td>
+				  	<td><span class="displayData"><% c.EdgePoints %></span></td>
+				  	<td><label class="displayLabel">Movement</label></td>
+				  	<td><span class="displayData"><% c.Agility * 2 %> / <% c.Agility * 4 %> / 
 							<% IF c.Metatype == "Troll" or c.Metatype == "Dwarf" %>+1<% ELSE %>+2<% END %>m 
-							(<span class="dice"><% c.Body + c.get_skill("Running") %></span>)</span></span></li>
-				<li><span class="half"><label class="displayLabel">Physical Limit</label>
-						<span class="displayData"><% c.PhysicalLimit %></span></span>
-					<span class="half"><label class="displayLabel">Mental Limit</label>
-						<span class="displayData"><% c.MentalLimit %></span></span>
-					<span class="half"><label class="displayLabel">Social Limit</label>
-						<span class="displayData"><% c.SocialLimit %></span></span></li>
-			</ol>
+							(<span class="dice"><% c.Body + c.get_skill("Running") %></span>)</span></td>
+				  </tr>
+				  <tr>
+				  	<td colspan="4">
+						<label class="displayLabel">Physical Limit</label> <span class="displayData"><% c.PhysicalLimit %></span>
+						<label class="displayLabel">Mental Limit</label> <span class="displayData"><% c.MentalLimit %></span>
+						<label class="displayLabel">Social Limit</label> <span class="displayData"><% c.SocialLimit %></span>
+				  	</td>
+				  </tr>
+				</table>
+			</div>
 			<div class="section">Skills</div>
 			<div class="twoColumn">
 				<table>

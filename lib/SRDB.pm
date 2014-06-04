@@ -119,11 +119,18 @@ DBIx::DataModel
 				[qw/Stat				BaseStats			1		ID			/])
 #
 
-# ->Association(	[qw/Character			Characters		*		Char_Skills		Character	/],
-# 				[qw/Skill				Skills			* 		Char_Skills		Skill		/])
+# Many to Many joins #
+# 					Class 				Role 			Mult 	Method Path
+->Association(	[qw/Character			Characters		*		Char_Skills		Character	/],
+				[qw/Skill				Skills			* 		Char_Skills		Skill		/])
 # 
-# ->Association(	[qw/Character			Characters		*		Char_Qualities	Character	/],
-# 				[qw/Quality				Qualities		*		Char_Qualities	Quality		/])
+->Association(	[qw/Character			Characters		*		Char_Qualities	Character	/],
+				[qw/Quality				Qualities		*		Char_Qualities	Quality		/])
+#
+->Association(	[qw/Character			Characters		*		Char_Stats		Character	/],
+				[qw/Stat				Stats			*		Char_Stats		Stat		/])
+#
+
 ;
 
 SRDB->dbh(database());
@@ -137,88 +144,88 @@ sub PhysicalLimit
 {
 	my $self = shift;
 	# return ceil(($self->{'Strength'} + $self->{'Body'} + $self->{'Agility'} + $self->{'Reaction'}) / 3);
-	return ceil(($self->{'Strength'} * 2 + $self->{'Body'} + $self->{'Reaction'}) / 3);
+	return ceil(($self->Strength * 2 + $self->Body + $self->Reaction) / 3);
 }
 
 sub MentalLimit
 {
 	my $self = shift;
 	# return ceil(($self->{'Willpower'} + $self->{'Logic'} + $self->{'Intuition'} + $self->{'Charisma'} ) / 3);
-	return ceil(($self->{'Logic'} * 2 + $self->{'Intuition'} + $self->{'Willpower'} ) / 3);
+	return ceil(($self->Logic * 2 + $self->Intuition + $self->Willpower ) / 3);
 }
 
 sub SocialLimit
 {
 	my $self = shift;
-	return ceil(($self->{'Charisma'} * 2 + $self->{'Willpower'} + $self->{'Essence'}) / 3);
+	return ceil(($self->Charisma * 2 + $self->Willpower + $self->Essence) / 3);
 }
 
 sub PhysicalTrack
 {
 	my $self = shift;
-	return 8 + ceil($self->{'Body'} / 2);
+	return 8 + ceil($self->Body / 2);
 }
 
 sub StunTrack
 {
 	my $self = shift;
-	return 8 + ceil($self->{'Willpower'} / 2);
+	return 8 + ceil($self->Willpower / 2);
 }
 
 sub Body
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Body)|Total/], -result_as=>'firstrow')->{'Total'};
 }
 sub Agility
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Agility)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Reaction
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Reaction)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Strength
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Strength)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Willpower
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Willpower)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Logic
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Logic)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Intuition
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Intuition)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Charisma
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Charisma)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Edge
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Edge)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub Essence
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(Essence)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 sub MagicResonance
 { 
 	my $self = shift;
-	return ;
+	return $self->Stats(-columns=>[qw/SUM(MagicResonance)|Total/], -result_as=>'firstrow')->{'Total'};;
 }
 
 # skill lookup with group cascade
