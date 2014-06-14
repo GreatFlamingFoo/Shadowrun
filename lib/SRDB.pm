@@ -31,8 +31,8 @@ DBIx::DataModel
 ->Table(qw/Character_Spell			Character_Spell			ID	/)
 ->Table(qw/Power					Power					ID	/)
 ->Table(qw/Character_Augmentation	Character_Augmentation	ID	/)
-->Table(qw/Augmetnation				Augmetnation			ID	/)
-->Table(qw/Augmetnation_Stat		Augmetnation_Stat		ID	/)
+->Table(qw/Augmentation				Augmentation			ID	/)
+->Table(qw/Augmentation_Stat		Augmentation_Stat		ID	/)
 ->Table(qw/Stat						Stat					ID	/)
 ->Table(qw/Character_Stat			Character_Stat			ID	/)
 
@@ -100,14 +100,14 @@ DBIx::DataModel
 ->Association(	[qw/Gear				Gear				1		ID			/],
 				[qw/Character_Augmentation	Char_Augmetation	*	GID			/])
 #
-->Association(	[qw/Augmetnation		Augmetnation		1		ID			/],
+->Association(	[qw/Augmentation		Augmentation		1		ID			/],
 				[qw/Character_Augmentation	Char_Augmetation	*	AID			/])
 #
-->Association(	[qw/Augmetnation		Augmetnation		1		ID			/],
-				[qw/Augmetnation_Stat	Aug_Stats			*		AID			/])
+->Association(	[qw/Augmentation		Augmentation		1		ID			/],
+				[qw/Augmentation_Stat	Aug_Stats			*		AID			/])
 #
 ->Association(	[qw/Stat				Stat				1		ID			/],
-				[qw/Augmetnation_Stat	Aug_Stats			*		SID			/])
+				[qw/Augmentation_Stat	Aug_Stats			*		SID			/])
 #
 ->Association(	[qw/Stat				Stat				1		ID			/],
 				[qw/Character_Stat		Char_Stats			*		SID			/])

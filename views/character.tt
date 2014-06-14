@@ -127,7 +127,7 @@
 							<% IF stat and s.Rating %>(<span class="dice"><% s.Rating + c.$stat %></span>)<% END %></td>
 					 	<td><span onclick="addDice(2);"><% s.Specialization %></span></td>
 					 	<td><% s.Skill.Type %></td>
-					 	<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% s.Skill.Description %>"</td>
+					 	<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% s.Skill.Description %>" /></td>
 					 </tr>
 					 <% IF s.Skill.Type == "Group" %>
 					  <% FOREACH ss in s.Skill.Group_Skills %>
@@ -137,7 +137,7 @@
 					   	<td>&nbsp;&nbsp;<% s.Rating %> <% IF stat %>(<span class="dice"><% s.Rating + c.$stat %></span>)<% END %></td>
 					   	<td>&nbsp;</td>
 					   	<td>&nbsp;&nbsp;<% ss.Type %></td>
-					   	<td>&nbsp;&nbsp;<img src="<% request.uri_base %>/images/emblem-notice.png" title="<% ss.Description %>"</td>
+					   	<td>&nbsp;&nbsp;<img src="<% request.uri_base %>/images/emblem-notice.png" title="<% ss.Description %>" /></td>
 					   </tr>
 					  <% END %>
 					 <% END %>
@@ -152,6 +152,28 @@
 				<li><label class="displayLabel">Fake IDs / Related Lifestyles / Funds / Licenses</label>
 					<br/>...</li>
 			</ol>
+			
+			<div class="section">Gear</div>
+			<div class="twoColumn">
+				<table style="width:100%;">
+				  <tr>
+					  <th>On</th>
+					  <th>Name</th>
+					  <th>Rating</th>
+					  <th>Count</th>
+					  <th>&nbsp;</th>
+				  </tr>
+				  <% FOREACH g in c.Gear %>
+					<tr>
+					  <td><input type="checkbox" <% IF g.Active %>checked<% END %> /></td>
+					  <td><% g.Name %></td>
+					  <td><% g.Rating %></td>
+					  <td><% g.Count %></td>
+					  <td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% g.Desc %>"></td>
+					</tr>
+				  <% END %>
+				</table>
+			</div>
 		</div>
 		<div class="rightColumn">
 			<div class="section">Core Combat Info</div>
