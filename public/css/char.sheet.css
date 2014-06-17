@@ -71,6 +71,7 @@ td {
 
 .dice {
 	color: #5C0B0D;
+	cursor: pointer;
 }
 
 #diceBox {

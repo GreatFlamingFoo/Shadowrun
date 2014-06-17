@@ -1,6 +1,13 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<meta http-equiv="Content-type" content="text/html; charset=<% settings.charset %>" />
 	<link rel="stylesheet" href="<% request.uri_base %>/css/char.sheet.css" />
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">/* <![CDATA[ */
+	    !window.jQuery && document.write('<script type="text/javascript" src="<% request.uri_base %>/javascripts/jquery.min.js"><\/script>')
+	/* ]]> */</script>
 	<script type="text/javascript" src="<% request.uri_base %>/javascripts/char.sheet.js"></script>
 </head>
 <body onload="setup();">
@@ -50,21 +57,21 @@
 				  	<td><span class="displayData"><% c.BaseStats.Reaction %> (<span class="dice"><% c.Reaction %></span>)</span></td>
 				  	<td><label class="displayLabel">Initiative</label></td>
 				  	<td><span class="displayData"><% c.Initiative %></span>
-						<input size="3" name="init" style="float: right;"></td>
+						<input size="3" name="init" style="float: right;" class="init"></td>
 				  </tr>
 				  <tr>
 				  	<td><label class="displayLabel">Strength</label></td>
 				  	<td><span class="displayData"><% c.BaseStats.Strength %> (<span class="dice"><% c.Strength %></span>)</span></td>
 				  	<td><label class="displayLabel">Matrix Initiative</label></td>
 				  	<td><span class="displayData dice"><% c.MatrixInitiative %></span>
-						<input size="3" name="init" style="float: right;"></td>
+						<input size="3" name="init" style="float: right;" class="init"></td>
 				  </tr>
 				  <tr>
 				  	<td><label class="displayLabel">Willpower</label></td>
 				  	<td><span class="displayData"><% c.BaseStats.Willpower %> (<span class="dice"><% c.Willpower %></span>)</span></td>
 				  	<td><label class="displayLabel">Astral Initiative</label></td>
 				  	<td><span class="displayData"><% c.AstralInitiative %></span>
-						<input size="3" name="init" style="float: right;"></td>
+						<input size="3" name="init" style="float: right;" class="init"></td>
 				  </tr>
 				  <tr>
 				  	<td><label class="displayLabel">Logic</label></td>
@@ -120,14 +127,18 @@
 					</tr>
 					<% FOREACH s in c.Char_Skills %>
 					 <tr>
-					 	<td><% IF s.Skill.Type == "Language" or s.Skill.Type == "Knowledge" %><% s.Notes %>
+					  <!-- <form action="<% s.url %>"> -->
+						<td><% IF s.Skill.Type == "Language" or s.Skill.Type == "Knowledge" %><% s.Notes %>
 							<% ELSE %><% s.Skill.Name %><% END %></td>
-					 	<%- stat = s.Skill.Stat -%>
-					 	<td><% IF s.Rating %><% s.Rating %> <% ELSIF s.Skill.Type == "Language" %>N<% ELSE %>N/A<% END %>
+						<%- stat = s.Skill.Stat -%>
+						<!-- <input type="hidden" name="Rating" value="<% s.Rating %>" /> -->
+						<td><% IF s.Rating %><% s.Rating %> <% ELSIF s.Skill.Type == "Language" %>N<% ELSE %>N/A<% END %>
 							<% IF stat and s.Rating %>(<span class="dice"><% s.Rating + c.$stat %></span>)<% END %></td>
-					 	<td><span onclick="addDice(2);"><% s.Specialization %></span></td>
-					 	<td><% s.Skill.Type %></td>
-					 	<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% s.Skill.Description %>" /></td>
+						<!-- <input type="hidden" name="Specialization" value="<% s.Specialization %>"> -->
+						<td><span onclick="addDice(2);"><% s.Specialization %></span></td>
+						<td><% s.Skill.Type %></td>
+						<td><img src="<% request.uri_base %>/images/emblem-notice.png" title="<% s.Skill.Description %>" /></td>
+					  <!-- </form> -->
 					 </tr>
 					 <% IF s.Skill.Type == "Group" %>
 					  <% FOREACH ss in s.Skill.Group_Skills %>
@@ -195,8 +206,9 @@
 			</ol>
 			<div class="section">Condition Monitor</div>
 			<div class="twoColumn">
-				<input type="hidden" id="physicalDmg" value="0">
-				<input type="hidden" id="physicalBoxes" value="<% c.PhysicalTrack %>">
+				<form action="<% c.url %>">
+				<input type="hidden" id="PhysicalDmg" value="<% c.PhysicalDmg %>">
+				<input type="hidden" id="PhysicalBoxes" value="<% c.PhysicalTrack %>">
 				<table class="leftColumn track" id="physical">
 					<tr><th colspan="3">Physical Damage Track</th></tr>
 					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-1);">-1</td></tr>
@@ -207,8 +219,8 @@
 					<tr><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td class="pBox">&nbsp;</td><td onclick="addDice(-6);">-6</td></tr>
 				</table>
 				
-				<input type="hidden" id="stunDmg" value="0">
-				<input type="hidden" id="stunBoxes" value="<% c.StunTrack %>">
+				<input type="hidden" id="StunDmg" value="<% c.StunDmg %>">
+				<input type="hidden" id="StunBoxes" value="<% c.StunTrack %>">
 				<table class="rightColumn track" id="stun">
 					<tr><th colspan="3">Stun Damage Track</th></tr>
 					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-1);">-1</td></tr>
@@ -216,8 +228,9 @@
 					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-3);">-3</td></tr>
 					<tr><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td class="sBox">&nbsp;</td><td onclick="addDice(-4);">-4</td></tr>
 				</table>
-				<div class="rightColumn"><br/>Overflow <input size="3" id="overflow" value="0">/<% c.Body %></div>
+				<div class="rightColumn"><br/>Overflow <input size="3" name="Overflow" value="<% c.Overflow %>">/<% c.Body %></div>
 				<div style="clear:both;">&nbsp;</div>
+				</form>
 			</div>
 			<div class="section">Qualities</div>
 			<div class="twoColumn">
@@ -274,7 +287,8 @@
 		<div>
 			<input id="dice" size=4>
 			<input type="button" value="Roll" onclick="roll();">
-			<input type="button" value="Reroll" onclick="reroll();">
+			<input type="button" value="Edge before" onclick="edgeBefore();">
+			<input type="button" value="Edge after"  onclick="edgeAfter();">
 		</div>
 		<span id="results">&nbsp;</span>
 	</div>

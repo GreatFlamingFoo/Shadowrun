@@ -6,9 +6,7 @@ use DBI;
 use DBIx::DataModel;
 
 DBIx::DataModel
-
 ->Schema("SRDB")
-
 
 #		   Class					Table					PK
 ->Table(qw/Character				Character				ID	/)

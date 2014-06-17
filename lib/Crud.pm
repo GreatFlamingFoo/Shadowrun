@@ -38,6 +38,12 @@ foreach(map { $_->name } SRDB->metadm->tables)
 			SRDB->table($table)->update(param("id"), $args);
 		},
 		;
+	
+	no strict 'refs';
+	*{"SRDB::${table}::url"} = sub {
+		my $self = shift;
+		return request->uri_for( '/api/'.$res.'/'.$self->{'ID'} );
+	};
 }
 
 prefix undef;
